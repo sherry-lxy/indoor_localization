@@ -4,6 +4,8 @@ import pickle
 import pdb
 import glob
 
+import pathlib
+
 import random
 import numpy as np
 
@@ -146,23 +148,23 @@ def main():
     start = time.time()
 
     # specify your query and db images
-    images = sorted(glob.glob('../../dataset/library/reference_resize_480_640_rename/*.JPG')) # 54
-    query = sorted(glob.glob('../../dataset/library/query_resize_rename/*.JPG')) # 42
+    reference = sorted(pathlib.Path('../../dataset/library/reference_resize_480_640_rename/').glob('*.JPG'))
+    query = sorted(pathlib.Path('../../dataset/library/query_resize_rename/').glob('*.JPG'))
 
     bbxs = None
 
     # extract database and query vectors
-    vecs = extract_vectors(net, images, args.image_size, transform, ms=ms, msp=msp)
+    reference_vecs = extract_vectors(net, reference, args.image_size, transform, ms=ms, msp=msp)
     query_vecs = extract_vectors(net, query, args.image_size, transform, bbxs=bbxs, ms=ms, msp=msp)
 
     # convert to numpy
-    vecs = vecs.numpy()
+    reference_vecs = reference_vecs.numpy()
     query_vecs = query_vecs.numpy()
 
     # 転置 
-    vecs = vecs.T
+    reference_vecs = reference_vecs.T
     query_vecs = query_vecs.T
-    number_of_dataset = vecs.shape[0]
+    number_of_dataset = reference_vecs.shape[0]
     number_of_query = query_vecs.shape[0]
 
     # 初期化・パス指定
@@ -181,35 +183,29 @@ def main():
     start = time.time()
     for i in range(number_of_query):
         dis_list = {}
-        print("query: ", query[i][42:])
+        print("query: ", query[i].name)
         for j in range(0, number_of_dataset,4):
-            # 近傍距離を比較する．もう既にペアできた画像が探索対象外とする．◎
-            # 処理時間を短縮したほう
-            dis = np.array([np.linalg.norm(query_vecs[i]-vecs[j+x]) for x in range(4)])  
+            # 近傍距離を比較する．重複なし
+            dis = np.array([np.linalg.norm(query_vecs[i]-reference_vecs[j+x]) for x in range(4)])  
             distance = np.min(dis)
             idx = np.argmin(dis)
 
-            reference = images[j+idx][54:-4]
+            ref = reference[j+idx].name[:-4]
 
-            # distance = np.sum([np.min([np.linalg.norm(query_vecs[i+y]-vecs[j+x]) for x in range(4)]) for y in range(2)])
-            dis_list[reference] = distance
+            dis_list[ref] = distance
         
-        # print("distance = ", dis_list)
         dis_sort = sorted(dis_list.items(), key=lambda x:x[1])
-        #ans_img = np.array([dis_sort[x][0] for x in range(topk)])
         ans_img = np.array([dis_sort[x][0][:-2] for x in range(len(dis_sort))])
-        #print("ans_img: ", len(ans_img))
-        ans_img = np.array([dis_sort[x][0][:-2] for x in range(topk)])
-        print(" ans img: ", ans_img)
+        print(" ans img: ", ans_img[:topk])
 
-        #ap = mAP(path_folder, query[i][42:45], ans_img, topk)
-        top = Top1(path_folder, query[i][42:45], ans_img)
+        ap = mAP(path_folder, query[i].name[:-6], ans_img, topk)
+        top = Top1(path_folder, query[i].name[:-6], ans_img)
         print(" top1 = " + str(top))
-        #map = np.append(map, ap)
+        map = np.append(map, ap)
         top1 = np.append(top1, top)
 
     print("**************************************************")     
-    #print("mAP = ", np.mean(map))
+    print("mAP = ", np.mean(map))
     print("Top-1 = ", np.mean(top1))
     print("time = ", time.time()-start)
 
@@ -231,29 +227,24 @@ def main():
     for i in range(0, number_of_query, 4):
         dis_list = {}
         ran = random.sample(range(4), k=2)
-        #print("query: ", query[i+ran[0]][42:], ", ", query[i+ran[1]][42:])
+        print("query: ", query[i+ran[0]].name, ", ", query[i+ran[1]].name)
         for j in range(0, number_of_dataset, 4):
-            reference = images[j][54:-6]
-            
+            ref = reference[j].name[:-6]
+
             # 方向が重複しないように，24通りすべて計算してから，minを選ぶ．
-            keep = np.array([[np.linalg.norm(query_vecs[i+ran[x]]-vecs[j+y]) for x in range(2)] for y in range(4)])
+            keep = np.array([[np.linalg.norm(query_vecs[i+ran[x]]-reference_vecs[j+y]) for x in range(2)] for y in range(4)])
             dis = np.array([np.sum([keep[index_all[y][x]][x] for x in range(2)]) for y in range(12)])
-            #dis = np.array([np.sum([np.linalg.norm(query_vecs[i+ran[x]]-vecs[j+index_all[y][x]]) for x in range(2)]) for y in range(12)])
             distance = np.min(dis)  
             
-
-            # distance = np.sum([np.min([np.linalg.norm(query_vecs[i+y]-vecs[j+x]) for x in range(4)]) for y in range(2)])
-            dis_list[reference] = distance
+            dis_list[ref] = distance
         
-        # print("distance = ", dis_list)
         dis_sort = sorted(dis_list.items(), key=lambda x:x[1])
-        #ans_img = np.array([dis_sort[x][0] for x in range(topk)])
         ans_img = np.array([dis_sort[x][0] for x in range(len(dis_sort))])
-        #print(" ans_img: ", ans_img)
+        print(" ans_img: ", ans_img[:topk])
 
-        ap = mAP(path_folder, query[i][42:45], ans_img, topk)
-        top = Top1(path_folder, query[i][42:45], ans_img)
-        #print(" ap = " + str(ap))
+        ap = mAP(path_folder, query[i].name[:-6], ans_img, topk)
+        top = Top1(path_folder, query[i].name[:-6], ans_img)
+        print(" ap = " + str(ap))
         map = np.append(map, ap)
         top1 = np.append(top1, top)
 
@@ -279,29 +270,24 @@ def main():
     for i in range(0, number_of_query, 4):
         dis_list = {}
         ran = random.sample(range(4), k=3)
-        #print("query: ", query[i+ran[0]][42:], ", ", query[i+ran[1]][42:], ", ", query[i+ran[2]][42:])
+        print("query: ", query[i+ran[0]].name, ", ", query[i+ran[1]].name, ", ", query[i+ran[2]].name)
         for j in range(0, number_of_dataset, 4):
-            reference = images[j][54:-6]
-            
+            ref = reference[j].name[:-6]
+
             # 方向が重複しないように，24通りすべて計算してから，minを選ぶ．
-            keep = np.array([[np.linalg.norm(query_vecs[i+ran[x]]-vecs[j+y]) for x in range(3)] for y in range(4)])
+            keep = np.array([[np.linalg.norm(query_vecs[i+ran[x]]-reference_vecs[j+y]) for x in range(3)] for y in range(4)])
             dis = np.array([np.sum([keep[index_all[y][x]][x] for x in range(3)]) for y in range(24)])
-            #dis = np.array([np.sum([np.linalg.norm(query_vecs[i+ran[x]]-vecs[j+index_all[y][x]]) for x in range(3)]) for y in range(24)])
             distance = np.min(dis)  
                      
+            dis_list[ref] = distance
 
-            # distance = np.sum([np.min([np.linalg.norm(query_vecs[i+y]-vecs[j+x]) for x in range(4)]) for y in range(3)])
-            dis_list[reference] = distance
-
-        # print("distance = ", dis_list)
         dis_sort = sorted(dis_list.items(), key=lambda x:x[1])
-        #ans_img = np.array([dis_sort[x][0] for x in range(topk)])
         ans_img = np.array([dis_sort[x][0] for x in range(len(dis_sort))])
-        #print(" ans_img: ", ans_img)
+        print(" ans_img: ", ans_img[:topk])
 
-        ap = mAP(path_folder, query[i][42:45], ans_img, topk)
-        top = Top1(path_folder, query[i][42:45], ans_img)
-        #print(" ap = " + str(ap))
+        ap = mAP(path_folder, query[i].name[:-6], ans_img, topk)
+        top = Top1(path_folder, query[i].name[:-6], ans_img)
+        print(" ap = " + str(ap))
         map = np.append(map, ap)
         top1 = np.append(top1, top)
 
@@ -325,27 +311,108 @@ def main():
     start = time.time()
     for i in range(0, number_of_query, 4):
         dis_list = {}
-        #print("query: ", query[i][42:45])
+        print("query: ", query[i].name[:-6])
         for j in range(0, number_of_dataset, 4):
-            reference = images[j][54:-6] 
+            ref = reference[j].name[:-6]
+            '''
+            # 近傍距離を比較する．もう既にペアできた画像が探索対象外とする．◎
+            min_arg = np.array([])
+            distance = 0         
+            for d in range(direction):
+                dis = np.array([np.where(x in min_arg, np.inf, np.linalg.norm(query_vecs[i+d]-vecs[j+x])) for x in range(4)])
+                distance += np.min(dis)
+                min_arg = np.append(min_arg, np.argmin(dis))
+            '''
 
+            '''
+            # 近傍距離を比較する．もう既にペアできた画像が探索対象外とする．◎
+            # 処理時間を短縮したほう
+            index = np.array([0,1,2,3])
+            distance = 0
+            for d in range(direction):
+                dis = np.array([np.linalg.norm(query_vecs[i+d]-vecs[j+index[x]]) for x in range(4-d)])  
+                distance += np.min(dis)
+                min_arg = np.argmin(dis)
+                index[min_arg], index[3-d] = index[3-d], index[min_arg]
+            '''
+
+            
             # 方向が重複しないように，24通りすべて計算してから，minを選ぶ．
-            keep = np.array([[np.linalg.norm(query_vecs[i+x]-vecs[j+y]) for x in range(4)] for y in range(4)])
+            keep = np.array([[np.linalg.norm(query_vecs[i+x]-reference_vecs[j+y]) for x in range(4)] for y in range(4)])
             dis = np.array([np.sum([keep[index_all[y][x]][x] for x in range(4)]) for y in range(24)])
             distance = np.min(dis)
+            
 
-            dis_list[reference] = distance / direction
+            '''
+            # 方向が重複しないように，24通りすべて計算してから，類似度のmaxを選ぶ．
+            keep = np.array([[np.dot(query_vecs[i+x].T, vecs[j+y]) for x in range(4)] for y in range(4)])
+            dis = np.array([np.sum([keep[index_all[y][x]][x] for x in range(4)]) for y in range(24)])
+            distance = np.min(-dis)
+            '''
 
-        # print("distance = ", dis_list)
+            '''
+            # 4方向を対応つけるように近傍探索する ×
+            index = np.array([0,1,2,3])
+            dis_tmp = np.array([])
+            for d in range(direction):
+                dis = np.array([np.linalg.norm(query_vecs[i+x]-vecs[j+index[x]]) for x in range(4)])
+                dis_tmp = np.append(dis_tmp, dis)
+                index = np.roll(index, 1)
+            distance = np.min(dis_tmp)
+            '''
+
+            '''
+            # 方向決まりで近傍探索 ×
+            distance = np.sum([np.linalg.norm(query_vecs[i+x]-vecs[j+x]) for x in range(4)])
+            '''
+            
+            '''
+            # 特徴ベクトルの平均を取ってから，近傍距離を比較する ×
+            query_dis = np.mean([query_vecs[i+x] for x in range(4)],axis=0)
+            reference_dis = np.mean([vecs[j+x] for x in range(4)], axis=0)
+            distance = np.linalg.norm(query_dis - reference_dis)
+            dis_list[reference] = distance
+            '''
+            
+            '''
+            # 類似度を比較する 〇
+            min_arg = np.array([])
+            distance = 0
+            for d in range(direction):
+                dis = np.array([np.where(x in min_arg, 0, np.dot(vecs[j+x].T, query_vecs[i+d])) for x in range(4)])
+                #print("dis = ", dis)
+                distance += np.min(-dis)
+                min_arg = np.append(min_arg, np.argmin(-dis))
+            '''
+            
+            '''
+            # 近傍距離を比較する(重複あり) △
+            distance = np.sum([np.min([np.linalg.norm(query_vecs[i+y]-vecs[j+x]) for x in range(4)]) for y in range(4)])
+            '''
+
+            dis_list[ref] = distance / direction
+
         dis_sort = sorted(dis_list.items(), key=lambda x:x[1])
-        #print("last = ", dis_sort[len(dis_sort)-1][0])
-        #ans_img = np.array([dis_sort[x][0] for x in range(topk)])
         ans_img = np.array([dis_sort[x][0] for x in range(len(dis_sort))])
-        #print(" ans_img: ", ans_img) 
+        print(" ans_img: ", ans_img[:topk])
 
-        ap = mAP(path_folder, query[i][42:45], ans_img, topk)
-        top = Top1(path_folder, query[i][42:45], ans_img)
-        #print(" ap = " + str(ap))
+        '''
+        # save the result image
+        if query[i][39:42] == '005':
+            for d in range(4):
+                plt.figure(figsize=(16, 8))
+                for k in range(5):
+                    plt.subplot(1, 5, k+1)
+                    plt.title("top{0}:{1}_{2}".format(k+1, ans_img[k], d))
+                    img = cv2.imread("../dataset/library/reference_resize_480_640_rename/{0}_{1}.JPG".format(ans_img[k], d))
+                    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                    plt.imshow(img)
+                plt.savefig("ans_multi_direction_1123/after_{0}_{1}.JPG".format(query[i][39:42], d))
+        '''    
+
+        ap = mAP(path_folder, query[i].name[:-6], ans_img, topk)
+        top = Top1(path_folder, query[i].name[:-6], ans_img)
+        print(" ap = " + str(ap))
         map = np.append(map, ap)
         top1 = np.append(top1, top)
 
