@@ -12,4 +12,4 @@ The basic idea is to improve the localization quality by retrieving the pre-capt
 To this end, we introduce a simple metric to evaluate the distance between multi-view images. 
 Experiments on two image datasets of real indoor scenes demonstrate the effectiveness of the proposed method.
 
-*Keywords*:  indoor localization, multi-view image, image recognition, similarity image search
+_Keywords_:  indoor localization, multi-view image, image recognition, similarity image search
