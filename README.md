@@ -15,15 +15,18 @@ Experiments on two image datasets of real indoor scenes demonstrate the effectiv
 **Keywords**:  indoor localization, multi-view image, image recognition, similarity image search
 
 ## Datasets
-・TUS Library Dataset:
+- TUS Library Dataset:
 
 TUS Library Dataset is our proprietary dataset: it is a set of images taken at the Tokyo University of Science (TUS) Katsushika Campus Library (floor area: 3,358 m²). We captured reference images at 159 locations × 4 directions (636 images in total) taken at about 1[m] intervals by an iPhoneSE. Query images of 42 locations × 4 directions (168 images in total) were taken at random locations with an iPhone8Plus. All the images had size of 480×640[px].
 
-・West Coast Plaza (WCP) dataset:
+- West Coast Plaza (WCP) dataset:
 
 WCP Dataset is a public dataset of images taken at a shopping mall in Singapore (floor area: 15,000 m²). We have reference images of 316 locations × 4 directions (1264 images in total) taken at about 1[m] intervals with a Vivo Y79 and query images of 78 locations × 4 directions (312 images in total) were taken at random locations with a Vivo Y79.
 
 ## Installation
 - Python 3.8.5
 - PyTorch 1.8.0+cu111
+
+## Evaluation
+'python multi_library.py'
 
