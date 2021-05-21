@@ -27,6 +27,9 @@ WCP Dataset is a public dataset of images taken at a shopping mall in Singapore 
 - Python 3.8.5
 - PyTorch 1.8.0+cu111
 
+## Network
+- ResNet152 (trained on google-landmarks-2018)
+
 ## Evaluation
 ```
 python multi_library.py
