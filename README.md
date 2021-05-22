@@ -43,6 +43,10 @@ The percentage of query images where the distances between the estimated locatio
 
 <img src="https://user-images.githubusercontent.com/52001212/119213493-6d1adf00-bafa-11eb-896a-ba12c0b590ac.jpg" height="200px">
 
+## Reference
+
+Filip Radenović, et al. Fine-Tuning CNN Image Retrieval with No Human Annotation. *TPAMI*, Vol. 41, No. 7, pp. 1655–1668, 2019.
+
 ## Conference
 - 李 欣耘(東京理科大学)，古田 諒佑(東京大学)，入江 豪(NTTコミュニケーション科学基礎研究所)，谷口 行信(東京理科大学)，“多視点画像及びGeM Poolingを用いた屋内位置推定の高精度化”，画像電子学会 第295回研究会，2020．
-- Xinyun Li, Ryosuke Furuta, Go Irie, and Yukinobu Taniguchi, "Accurate Indoor Localization Using Multi-View Image Distance", IEVC, 2021.
+- Xinyun Li, Ryosuke Furuta, Go Irie, and Yukinobu Taniguchi, "Accurate Indoor Localization Using Multi-View Image Distance", *IEVC*, 2021.
