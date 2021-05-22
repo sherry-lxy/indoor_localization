@@ -20,8 +20,8 @@ To this end, we introduce a simple metric to evaluate the distance between multi
 
 ## Datasets
 - TUS Library Dataset: <br>
-TUS Library Dataset is our proprietary dataset: it is a set of images taken at the Tokyo University of Science (TUS) Katsushika Campus Library (floor area: 3,358 m²). We captured reference images at 159 locations × 4 directions (636 images in total) taken at about 1[m] intervals by an iPhoneSE. Query images of 42 locations × 4 directions (168 images in total) were taken at random locations with an iPhone8Plus. All the images had size of 480×640[px].
-[TUS Library Dataset](https://drive.google.com/drive/folders/1pPIgqWh0kEy-_kt5TllEmGhuzAFtn95X?usp=sharing)
+TUS Library Dataset is our proprietary dataset: it is a set of images taken at the Tokyo University of Science (TUS) Katsushika Campus Library (floor area: 3,358 m²). We captured reference images at 159 locations × 4 directions (636 images in total) taken at about 1[m] intervals by an iPhoneSE. Query images of 42 locations × 4 directions (168 images in total) were taken at random locations with an iPhone8Plus. All the images had size of 480×640[px]. <br>
+You can download it from [here](https://drive.google.com/drive/folders/1pPIgqWh0kEy-_kt5TllEmGhuzAFtn95X?usp=sharing). Put the image data under `dataset/library/`.
 
 <div align="center">
 <img src="https://user-images.githubusercontent.com/52001212/119213393-a99a0b00-baf9-11eb-996a-d4de205c03c2.jpg" height="200px">
