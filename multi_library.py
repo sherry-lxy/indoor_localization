@@ -18,9 +18,8 @@ from torch.utils.model_zoo import load_url
 from torchvision import transforms
 
 import sys
-sys.path.append(os.path.abspath(".."))
 from cirtorch.networks.imageretrievalnet import init_network, extract_vectors
-# from cirtorch.utils.whiten import whitenlearn, whitenapply, pcawhitenlearn
+from cirtorch.utils.whiten import whitenlearn, whitenapply, pcawhitenlearn
 
 PRETRAINED = {
     'retrievalSfM120k-vgg16-gem'        : 'http://cmp.felk.cvut.cz/cnnimageretrieval/data/networks/retrieval-SfM-120k/retrievalSfM120k-vgg16-gem-b4dcdc6.pth',
@@ -44,7 +43,7 @@ args.network_path='gl18-tl-resnet152-gem-w'; args.whitening=None
 args.multiscale='[1]'    #'[1, 1/2**(1/2), 1/2]'
 args.image_size=1024
 args.gpu_id="0"
-args.data_root='./../data'
+args.data_root='./data'
 
 def main():
     # setting up the visible GPU
@@ -148,8 +147,8 @@ def main():
     start = time.time()
 
     # specify your query and db images
-    reference = sorted(pathlib.Path('../../dataset/library/reference_resize_480_640_rename/').glob('*.JPG'))
-    query = sorted(pathlib.Path('../../dataset/library/query_resize_rename/').glob('*.JPG'))
+    reference = sorted(pathlib.Path('./dataset/library/reference_resize_480_640_rename/').glob('*.JPG'))
+    query = sorted(pathlib.Path('./dataset/library/query_resize_rename/').glob('*.JPG'))
 
     bbxs = None
 
@@ -169,7 +168,7 @@ def main():
 
     # 初期化・パス指定
     topk = 5
-    path_folder = "../../dataset/library/annotation"
+    path_folder = "./dataset/library/annotation"
     
     
     # 近傍探索
@@ -314,101 +313,17 @@ def main():
         print("query: ", query[i].name[:-6])
         for j in range(0, number_of_dataset, 4):
             ref = reference[j].name[:-6]
-            '''
-            # 近傍距離を比較する．もう既にペアできた画像が探索対象外とする．◎
-            min_arg = np.array([])
-            distance = 0         
-            for d in range(direction):
-                dis = np.array([np.where(x in min_arg, np.inf, np.linalg.norm(query_vecs[i+d]-vecs[j+x])) for x in range(4)])
-                distance += np.min(dis)
-                min_arg = np.append(min_arg, np.argmin(dis))
-            '''
 
-            '''
-            # 近傍距離を比較する．もう既にペアできた画像が探索対象外とする．◎
-            # 処理時間を短縮したほう
-            index = np.array([0,1,2,3])
-            distance = 0
-            for d in range(direction):
-                dis = np.array([np.linalg.norm(query_vecs[i+d]-vecs[j+index[x]]) for x in range(4-d)])  
-                distance += np.min(dis)
-                min_arg = np.argmin(dis)
-                index[min_arg], index[3-d] = index[3-d], index[min_arg]
-            '''
-
-            
             # 方向が重複しないように，24通りすべて計算してから，minを選ぶ．
             keep = np.array([[np.linalg.norm(query_vecs[i+x]-reference_vecs[j+y]) for x in range(4)] for y in range(4)])
             dis = np.array([np.sum([keep[index_all[y][x]][x] for x in range(4)]) for y in range(24)])
             distance = np.min(dis)
-            
-
-            '''
-            # 方向が重複しないように，24通りすべて計算してから，類似度のmaxを選ぶ．
-            keep = np.array([[np.dot(query_vecs[i+x].T, vecs[j+y]) for x in range(4)] for y in range(4)])
-            dis = np.array([np.sum([keep[index_all[y][x]][x] for x in range(4)]) for y in range(24)])
-            distance = np.min(-dis)
-            '''
-
-            '''
-            # 4方向を対応つけるように近傍探索する ×
-            index = np.array([0,1,2,3])
-            dis_tmp = np.array([])
-            for d in range(direction):
-                dis = np.array([np.linalg.norm(query_vecs[i+x]-vecs[j+index[x]]) for x in range(4)])
-                dis_tmp = np.append(dis_tmp, dis)
-                index = np.roll(index, 1)
-            distance = np.min(dis_tmp)
-            '''
-
-            '''
-            # 方向決まりで近傍探索 ×
-            distance = np.sum([np.linalg.norm(query_vecs[i+x]-vecs[j+x]) for x in range(4)])
-            '''
-            
-            '''
-            # 特徴ベクトルの平均を取ってから，近傍距離を比較する ×
-            query_dis = np.mean([query_vecs[i+x] for x in range(4)],axis=0)
-            reference_dis = np.mean([vecs[j+x] for x in range(4)], axis=0)
-            distance = np.linalg.norm(query_dis - reference_dis)
-            dis_list[reference] = distance
-            '''
-            
-            '''
-            # 類似度を比較する 〇
-            min_arg = np.array([])
-            distance = 0
-            for d in range(direction):
-                dis = np.array([np.where(x in min_arg, 0, np.dot(vecs[j+x].T, query_vecs[i+d])) for x in range(4)])
-                #print("dis = ", dis)
-                distance += np.min(-dis)
-                min_arg = np.append(min_arg, np.argmin(-dis))
-            '''
-            
-            '''
-            # 近傍距離を比較する(重複あり) △
-            distance = np.sum([np.min([np.linalg.norm(query_vecs[i+y]-vecs[j+x]) for x in range(4)]) for y in range(4)])
-            '''
 
             dis_list[ref] = distance / direction
 
         dis_sort = sorted(dis_list.items(), key=lambda x:x[1])
         ans_img = np.array([dis_sort[x][0] for x in range(len(dis_sort))])
         print(" ans_img: ", ans_img[:topk])
-
-        '''
-        # save the result image
-        if query[i][39:42] == '005':
-            for d in range(4):
-                plt.figure(figsize=(16, 8))
-                for k in range(5):
-                    plt.subplot(1, 5, k+1)
-                    plt.title("top{0}:{1}_{2}".format(k+1, ans_img[k], d))
-                    img = cv2.imread("../dataset/library/reference_resize_480_640_rename/{0}_{1}.JPG".format(ans_img[k], d))
-                    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-                    plt.imshow(img)
-                plt.savefig("ans_multi_direction_1123/after_{0}_{1}.JPG".format(query[i][39:42], d))
-        '''    
 
         ap = mAP(path_folder, query[i].name[:-6], ans_img, topk)
         top = Top1(path_folder, query[i].name[:-6], ans_img)
