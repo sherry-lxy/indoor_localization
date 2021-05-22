@@ -13,8 +13,7 @@ To this end, we introduce a simple metric to evaluate the distance between multi
 
 **Keywords**:  indoor localization, multi-view image, image recognition, similarity image search, GeM pooling
 
-<img src="https://user-images.githubusercontent.com/52001212/119213251-b833f280-baf8-11eb-9185-5690351df058.png" width="200px">
-<img src="https://user-images.githubusercontent.com/52001212/119213274-df8abf80-baf8-11eb-95d5-a0c3fa208b1b.png" width="200px">
+<img src="https://user-images.githubusercontent.com/52001212/119213251-b833f280-baf8-11eb-9185-5690351df058.png" width="200px">　<img src="https://user-images.githubusercontent.com/52001212/119213274-df8abf80-baf8-11eb-95d5-a0c3fa208b1b.png" width="200px">
 
 
 ## Datasets
