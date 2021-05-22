@@ -11,7 +11,7 @@ In this paper, we propose a novel indoor localization method that uses multi-vie
 The basic idea is to improve the localization quality by retrieving the pre-captured image with location information (reference image) that best matches the multi-view query image taken from multiple directions around the user. 
 To this end, we introduce a simple metric to evaluate the distance between multi-view images. 
 
-**Keywords**:  indoor localization, multi-view image, image recognition, similarity image search, GeM pooling
+**Keywords**:  indoor localization, multi-view image, image recognition, similarity image search, GeM pooling[1]
 
 <div align="center">
 <img src="https://user-images.githubusercontent.com/52001212/119213251-b833f280-baf8-11eb-9185-5690351df058.png" width="400px">　　<img src="https://user-images.githubusercontent.com/52001212/119213274-df8abf80-baf8-11eb-95d5-a0c3fa208b1b.png" width="300px">
@@ -44,8 +44,7 @@ The percentage of query images where the distances between the estimated locatio
 <img src="https://user-images.githubusercontent.com/52001212/119213493-6d1adf00-bafa-11eb-896a-ba12c0b590ac.jpg" height="200px">
 
 ## Reference
-
-Filip Radenović, et al. Fine-Tuning CNN Image Retrieval with No Human Annotation. *TPAMI*, Vol. 41, No. 7, pp. 1655–1668, 2019.
+[1] Filip Radenović, et al. Fine-Tuning CNN Image Retrieval with No Human Annotation. *TPAMI*, Vol. 41, No. 7, pp. 1655–1668, 2019.
 
 ## Conference
 - 李 欣耘(東京理科大学)，古田 諒佑(東京大学)，入江 豪(NTTコミュニケーション科学基礎研究所)，谷口 行信(東京理科大学)，“多視点画像及びGeM Poolingを用いた屋内位置推定の高精度化”，画像電子学会 第295回研究会，2020．
