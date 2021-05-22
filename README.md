@@ -20,7 +20,8 @@ To this end, we introduce a simple metric to evaluate the distance between multi
 
 ## Datasets
 - TUS Library Dataset: <br>
-TUS Library Dataset is our proprietary dataset: it is a set of images taken at the Tokyo University of Science (TUS) Katsushika Campus Library (floor area: 3,358 m²). We captured reference images at 159 locations × 4 directions (636 images in total) taken at about 1[m] intervals by an iPhoneSE. Query images of 42 locations × 4 directions (168 images in total) were taken at random locations with an iPhone8Plus. All the images had size of 480×640[px]. <br>
+TUS Library Dataset is our proprietary dataset: it is a set of images taken at the Tokyo University of Science (TUS) Katsushika Campus Library (floor area: 3,358 m²). We captured reference images at 159 locations × 4 directions (636 images in total) taken at about 1[m] intervals by an iPhoneSE. Query images of 42 locations × 4 directions (168 images in total) were taken at random locations with an iPhone8Plus. All the images had size of 480×640[px].
+
 You can download it from [here](https://drive.google.com/drive/folders/1pPIgqWh0kEy-_kt5TllEmGhuzAFtn95X?usp=sharing). Put the image data under `dataset/library/`.
 
 <div align="center">
@@ -41,7 +42,7 @@ python multi_library.py
 
 ## Result
 Evaluation Metrics: <br>
-The percentage of query images where the distances between the estimated location and the ground truth location are within 1[m] is reported as One-Meter-Level Accuracy.
+　The percentage of query images where the distances between the estimated location and the ground truth location are within 1[m] is reported as One-Meter-Level Accuracy.
 
 <img src="https://user-images.githubusercontent.com/52001212/119213493-6d1adf00-bafa-11eb-896a-ba12c0b590ac.jpg" height="200px">
 
