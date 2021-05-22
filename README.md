@@ -38,3 +38,7 @@ TUS Library Dataset is our proprietary dataset: it is a set of images taken at t
 python multi_library.py
 ```
 
+## Result
+The percentage of query images where the distances between the estimated location and the ground truth location are within 1[m] is reported as One-Meter-Level Accuracy.
+
+<img src="https://user-images.githubusercontent.com/52001212/119213493-6d1adf00-bafa-11eb-896a-ba12c0b590ac.jpg" height="200px">
