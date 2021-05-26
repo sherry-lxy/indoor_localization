@@ -24,7 +24,7 @@ To this end, we introduce a simple metric to evaluate the distance between multi
 　You can download it from [here](https://drive.google.com/drive/folders/1pPIgqWh0kEy-_kt5TllEmGhuzAFtn95X?usp=sharing). Put the image data under `dataset/library/`.
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/52001212/119213393-a99a0b00-baf9-11eb-996a-d4de205c03c2.jpg" height="250px">
+![dataset](https://user-images.githubusercontent.com/52001212/119600510-268ef280-be22-11eb-9cbd-c85fcfd95da0.jpg)
 </div>
 
 ## Installation
