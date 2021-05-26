@@ -17,11 +17,6 @@ To this end, we introduce a simple metric to evaluate the distance between multi
 <img src="https://user-images.githubusercontent.com/52001212/119598331-b5e5d700-be1d-11eb-8390-187fe17da6fe.jpg" width="500px">　　<img src="https://user-images.githubusercontent.com/52001212/119598367-cb5b0100-be1d-11eb-8b1c-d04350c27f89.jpg" width="300px">
 </div>
 
-## Multi-view image distace
-Multi-view image distance <img src="https://latex.codecogs.com/gif.latex?{\rm&space;distance}({\mathbf&space;Q},&space;{\mathbf&space;R}_j)"/> between query image
-set 𝑸 = {𝑄􀯔}􀯔􀭀􀬵,􀬶,􀬷,􀬸 and a reference image set 𝑹𝒋 is defined as:
-<img src="https://latex.codecogs.com/gif.latex?{\rm&space;distance}({\mathbf&space;Q},&space;{\mathbf&space;R}_j)&space;=&space;\displaystyle&space;\min_{\sigma&space;\in&space;S_4}&space;\sum^4_{a=1}{\rm&space;dist}(Q_{a},&space;R_{j\sigma_a})" />
-
 ## Datasets
 - TUS Library Dataset: <br>
 　TUS Library Dataset is our proprietary dataset: it is a set of images taken at the Tokyo University of Science (TUS) Katsushika Campus Library (floor area: 3,358 m²). We captured reference images at 159 locations × 4 directions (636 images in total) taken at about 1[m] intervals by an iPhoneSE. Query images of 42 locations × 4 directions (168 images in total) were taken at random locations with an iPhone8Plus. All the images had size of 480×640[px]. <br>
