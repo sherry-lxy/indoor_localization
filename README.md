@@ -18,6 +18,8 @@ To this end, we introduce a simple metric to evaluate the distance between multi
 </div>
 
 ## Multi-view image distace
+Multi-view image distance <img src="https://latex.codecogs.com/gif.latex?{\rm&space;distance}({\mathbf&space;Q},&space;{\mathbf&space;R}_j)"/> between query image
+set 𝑸 = {𝑄􀯔}􀯔􀭀􀬵,􀬶,􀬷,􀬸 and a reference image set 𝑹𝒋 is defined as:
 <img src="https://latex.codecogs.com/gif.latex?{\rm&space;distance}({\mathbf&space;Q},&space;{\mathbf&space;R}_j)&space;=&space;\displaystyle&space;\min_{\sigma&space;\in&space;S_4}&space;\sum^4_{a=1}{\rm&space;dist}(Q_{a},&space;R_{j\sigma_a})" />
 
 ## Datasets
