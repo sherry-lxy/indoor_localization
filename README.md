@@ -18,7 +18,7 @@ To this end, we introduce a simple metric to evaluate the distance between multi
 </div>
 
 ## Multi-view image distace
-$(Q, R)$
+<img scr="<a href="https://www.codecogs.com/eqnedit.php?latex={\rm&space;distance}({\mathbf&space;Q},&space;{\mathbf&space;R}_j)&space;=&space;\displaystyle&space;\min_{\sigma&space;\in&space;S_4}&space;\sum^4_{a=1}{\rm&space;dist}(Q_{a},&space;R_{j\sigma_a})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?{\rm&space;distance}({\mathbf&space;Q},&space;{\mathbf&space;R}_j)&space;=&space;\displaystyle&space;\min_{\sigma&space;\in&space;S_4}&space;\sum^4_{a=1}{\rm&space;dist}(Q_{a},&space;R_{j\sigma_a})" title="{\rm distance}({\mathbf Q}, {\mathbf R}_j) = \displaystyle \min_{\sigma \in S_4} \sum^4_{a=1}{\rm dist}(Q_{a}, R_{j\sigma_a})" /></a>" />
 
 ## Datasets
 - TUS Library Dataset: <br>
