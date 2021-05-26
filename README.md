@@ -14,7 +14,7 @@ To this end, we introduce a simple metric to evaluate the distance between multi
 **Keywords**:  indoor localization, multi-view image, image recognition, similarity image search, GeM pooling[1]
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/52001212/119598331-b5e5d700-be1d-11eb-8390-187fe17da6fe.jpg" width="400px">　　<img src="https://user-images.githubusercontent.com/52001212/119598367-cb5b0100-be1d-11eb-8b1c-d04350c27f89.jpg" width="300px">
+<img src="https://user-images.githubusercontent.com/52001212/119598331-b5e5d700-be1d-11eb-8390-187fe17da6fe.jpg" width="500px">　　<img src="https://user-images.githubusercontent.com/52001212/119598367-cb5b0100-be1d-11eb-8b1c-d04350c27f89.jpg" width="300px">
 </div>
 
 
@@ -24,7 +24,7 @@ To this end, we introduce a simple metric to evaluate the distance between multi
 　You can download it from [here](https://drive.google.com/drive/folders/1pPIgqWh0kEy-_kt5TllEmGhuzAFtn95X?usp=sharing). Put the image data under `dataset/library/`.
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/52001212/119213393-a99a0b00-baf9-11eb-996a-d4de205c03c2.jpg" height="300px">
+<img src="https://user-images.githubusercontent.com/52001212/119213393-a99a0b00-baf9-11eb-996a-d4de205c03c2.jpg" height="250px">
 </div>
 
 ## Installation
