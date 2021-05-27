@@ -42,7 +42,7 @@ Evaluation Metrics: <br>
 
 <img src="https://user-images.githubusercontent.com/52001212/119213493-6d1adf00-bafa-11eb-896a-ba12c0b590ac.jpg" height="200px">
 
-## Reference
+## Publication
 [1] Filip Radenović, et al. Fine-Tuning CNN Image Retrieval with No Human Annotation. *TPAMI*, Vol. 41, No. 7, pp. 1655–1668, 2019.
 
 ## Conference
