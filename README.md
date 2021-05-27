@@ -42,9 +42,9 @@ Evaluation Metrics: <br>
 
 <img src="https://user-images.githubusercontent.com/52001212/119213493-6d1adf00-bafa-11eb-896a-ba12c0b590ac.jpg" height="200px">
 
-## Publication
+## Reference
 [1] Filip Radenović, et al. Fine-Tuning CNN Image Retrieval with No Human Annotation. *TPAMI*, Vol. 41, No. 7, pp. 1655–1668, 2019.
 
-## Conference
+## Publication
 - Xinyun Li (Tokyo University of Science)，Ryosuke Furuta (The University of Tokyo)，Go Irie (NTT Communication Science Laboratories)，and Yukinobu Taniguchi (Tokyo University of Science)，“Accurate Indoor Localization Using Multi-View Images and Generalized Mean Pooling”，*IIEEJ*，2020．
 - Xinyun Li, Ryosuke Furuta, Go Irie, and Yukinobu Taniguchi, "Accurate Indoor Localization Using Multi-View Image Distance", *IEVC*, 2021.
