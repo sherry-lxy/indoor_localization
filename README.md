@@ -47,4 +47,4 @@ Evaluation Metrics: <br>
 
 ## Publication
 - Xinyun Li (Tokyo University of Science)，Ryosuke Furuta (The University of Tokyo)，Go Irie (NTT Communication Science Laboratories)，and Yukinobu Taniguchi (Tokyo University of Science)，“Accurate Indoor Localization Using Multi-View Images and Generalized Mean Pooling”, *IIEEJ*, pp.107-111, 2020．
-- Xinyun Li, Ryosuke Furuta, Go Irie, and Yukinobu Taniguchi, "Accurate Indoor Localization Using Multi-View Image Distance", *IEVC*, 2021. (Best Student Paper Award)
+- Xinyun Li, Ryosuke Furuta, Go Irie, and Yukinobu Taniguchi, "Accurate Indoor Localization Using Multi-View Image Distance", *IEVC*, 3A-2, 2021. (Best Student Paper Award)
