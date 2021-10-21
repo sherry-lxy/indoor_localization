@@ -1,6 +1,8 @@
 # Accurate Indoor Localization Using Multi-View Image Distance
 
-Due to the increasing complexity of indoor facilities such as shopping malls and train stations, 
+This paper has won the best student paper award in IEVC 2021.
+
+**Abstract**: Due to the increasing complexity of indoor facilities such as shopping malls and train stations, 
 there is a need for a technology that can find the current location of a user using a smartphone or other devices, 
 even in indoor areas where GPS signals cannot be received. 
 Indoor localization methods based on image recognition have been proposed as solutions. 
