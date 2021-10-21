@@ -1,6 +1,6 @@
 # Accurate Indoor Localization Using Multi-View Image Distance
 
-This paper has won the best student paper award in IEVC 2021.
+This paper has won the Best Student Paper Award in IEVC 2021.
 
 **Abstract**: Due to the increasing complexity of indoor facilities such as shopping malls and train stations, 
 there is a need for a technology that can find the current location of a user using a smartphone or other devices, 
